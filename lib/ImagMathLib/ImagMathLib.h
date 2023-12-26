@@ -71,6 +71,9 @@ ComplexNum normal_vec(struct ComplexNum *a);
 */
 ComplexNum cross_product(struct ComplexNum *a, struct ComplexNum *b);
 
+/**
+ * TODO: Implement Euler exponential function
+*/
 ComplexNum euler_exp(ComplexNum *a, ComplexNum *b);
 
 double vec_magnitude(struct ComplexNum *a);
