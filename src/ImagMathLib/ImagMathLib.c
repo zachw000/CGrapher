@@ -29,7 +29,7 @@ void normalize_vec(ComplexNum *a)
 
 ComplexNum normal_vec(ComplexNum *a)
 {
-    struct ComplexNum norm_vec;
+    ComplexNum norm_vec;
     norm_vec.real_part = a->real_part;
     norm_vec.imag_part = a->imag_part;
     
@@ -43,6 +43,12 @@ ComplexNum normal_vec(ComplexNum *a)
 ComplexNum cross_product(ComplexNum *a, ComplexNum *b) {
     // TODO: Rewrite cross product to standard form
     return *a;
+}
+
+double two_dim_cross_product(ComplexNum *a, ComplexNum *b) {
+    double cp;
+    cp = (a->real_part * b->imag_part) - (a->imag_part * b->real_part);
+    return cp;
 }
 
 double vec_magnitude(ComplexNum *a) {

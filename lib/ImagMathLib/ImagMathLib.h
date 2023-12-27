@@ -93,4 +93,6 @@ void complex_stack_mult(ComplexNum *a, ComplexNum *b);
 void vec_stack_add(ComplexNum *a, ComplexNum *b);
 
 void vec_stack_abs(ComplexNum *a);
+
+double two_dim_cross_product(ComplexNum *a, ComplexNum *b);
 #endif
