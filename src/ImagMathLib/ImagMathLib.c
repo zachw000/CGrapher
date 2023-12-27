@@ -41,21 +41,8 @@ ComplexNum normal_vec(ComplexNum *a)
 }
 
 ComplexNum cross_product(ComplexNum *a, ComplexNum *b) {
-    // Assign memory for 2 32 bit floating point values
-    double lengths[2];
-
-    // Assign the results of each vector magnitude
-    lengths[0] = vec_magnitude(a);
-    lengths[1] = vec_magnitude(b);
-
-    // Generates resulting Vector
-    ComplexNum prod;
-    prod.real_part = lengths[0];
-    prod.imag_part = lengths[1];
-
-    // Free Memory
-    free(lengths);
-    return prod;
+    // TODO: Rewrite cross product to standard form
+    return *a;
 }
 
 double vec_magnitude(ComplexNum *a) {
