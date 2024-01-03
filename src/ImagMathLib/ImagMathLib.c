@@ -8,6 +8,31 @@ ComplexNum construct_pair(double real_comp, double imag_comp) {
     return cn;
 }
 
+vec3 construct_tri(size_t components) {
+    vec3 tp;
+    double compliment[3] = {0.0, 0.0, 0.0};
+    const size_t comp_size = sizeof(components);
+    if (sizeof(components) == sizeof(compliment)) {
+        compliment[0] = components >> (comp_size / 3);
+        components >>= comp_size / 3;
+        compliment[1] = components >> (comp_size / 3);
+        components >>= comp_size / 3;
+        compliment[2] = components >> (comp_size / 3);
+        components >>= comp_size / 3;
+    } else {
+        compliment[0] = 0.0;
+        compliment[1] = 0.0;
+        compliment[2] = 0.0;
+    }
+
+    // assign the variables;
+    tp.real_part = compliment[0];
+    tp.imag_part = compliment[1];
+    tp.z_coord = compliment[2];
+
+    return tp;
+}
+
 /**
  * Returns scalar value of the dot product
  */
@@ -40,12 +65,18 @@ ComplexNum normal_vec(ComplexNum *a)
     return norm_vec;
 }
 
-ComplexNum cross_product(ComplexNum *a, ComplexNum *b) {
-    // TODO: Rewrite cross product to standard form
+vec3 cross_product(vec3 *a, vec3 *b) {
+    // TODO: Implement cross product
+    // assumes union value of z_coord
+
     return *a;
 }
 
 double two_dim_cross_product(ComplexNum *a, ComplexNum *b) {
+    // warning 2D cross product may not work as expected, since there is not always
+    // an orthoganal vector in 2D space, returns a scalar value based on position
+    // and orientation of the two vectors in 2D, as 2D cross product will always
+    // produce a scalar value.
     double cp;
     cp = (a->real_part * b->imag_part) - (a->imag_part * b->real_part);
     return cp;

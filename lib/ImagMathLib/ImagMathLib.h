@@ -14,7 +14,19 @@ typedef struct ComplexNum
     double imag_part;
 } ComplexNum;
 
+typedef struct vec3
+{
+    double real_part;
+    double imag_part;
+    union {
+        double z_coord;
+        double w_comp;
+    };
+} vec3;
+
 ComplexNum construct_pair(double real_comp, double imag_comp);
+
+vec3 construct_tri(size_t components);
 
 /**
  * Finds the dot product of 2 vectors
@@ -64,29 +76,29 @@ ComplexNum normal_vec(struct ComplexNum *a);
  * Generates the Cross Product for 2 Complex Inputs
  * -------------------------------------------------------
  * 
- * Takes two vectors of type ComplexNumber *a, *b and
+ * Takes two vectors of type vec3 *a, vec3 *b and
  * returns the resulting pointer to the
  * vector of the cross product between the 
  * two vector inputs.
 */
-ComplexNum cross_product(struct ComplexNum *a, struct ComplexNum *b);
+vec3 cross_product(vec3 *a, vec3 *b);
 
 /**
  * TODO: Implement Euler exponential function
 */
 ComplexNum euler_exp(ComplexNum *a, ComplexNum *b);
 
-double vec_magnitude(struct ComplexNum *a);
+double vec_magnitude(ComplexNum *a);
 
-double vec_angle(struct ComplexNum *a);
+double vec_angle(ComplexNum *a);
 
-double vec_angle_deg(struct ComplexNum *a);
+double vec_angle_deg(ComplexNum *a);
 
-ComplexNum vec_add(struct ComplexNum *a, struct ComplexNum *b);
+ComplexNum vec_add(ComplexNum *a, ComplexNum *b);
 
-ComplexNum vec_sub(struct ComplexNum *a, struct ComplexNum *b);
+ComplexNum vec_sub(ComplexNum *a, ComplexNum *b);
 
-ComplexNum complex_mult(struct ComplexNum *a, struct ComplexNum *b);
+ComplexNum complex_mult(ComplexNum *a, ComplexNum *b);
 
 void complex_stack_mult(ComplexNum *a, ComplexNum *b);
 
