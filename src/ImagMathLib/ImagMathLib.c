@@ -11,14 +11,10 @@ ComplexNum construct_pair(double real_comp, double imag_comp) {
 vec3 construct_tri(size_t components) {
     vec3 tp;
     double compliment[3] = {0.0, 0.0, 0.0};
-    const size_t comp_size = sizeof(components);
     if (sizeof(components) == sizeof(compliment)) {
-        compliment[0] = components >> (comp_size / 3);
-        components >>= comp_size / 3;
-        compliment[1] = components >> (comp_size / 3);
-        components >>= comp_size / 3;
-        compliment[2] = components >> (comp_size / 3);
-        components >>= comp_size / 3;
+        compliment[0] = (double)(components & 0x00000000FFFFFFFF);
+        compliment[1] = (double)(components & 0xFFFFFFFF00000000);
+        compliment[2] = (double)((components >> (sizeof(compliment) / 3)) &  0xFFFFFFFF00000000);
     } else {
         compliment[0] = 0.0;
         compliment[1] = 0.0;
