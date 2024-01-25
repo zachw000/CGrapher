@@ -85,7 +85,7 @@ vec3 cross_product(vec3 *a, vec3 *b) {
     // takes 2 3d vectors and returns another 3D vector orthoganal to both vectors.
     vec3 res;
     double i_component = (a->imag_part * b->z_coord) - (b->imag_part * a->z_coord);
-    double j_component = (a->real_part * b->z_coord) - (b->real_part * a->z_coord);
+    double j_component = (a->real_part * b->z_coord) - (b->real_part * a->z_coord) * -1;
     double k_component = (a->real_part * b->imag_part) - (b->real_part * a->imag_part);
     res.real_part = i_component;
     res.imag_part = j_component;
