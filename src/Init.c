@@ -106,8 +106,8 @@ void generate_viewport(int m_width, int m_height, ComplexNum *map[m_width][m_hei
 void MandelbrotTest2(double x, double z) {
 
     // SPIRALS -0.826153702+0.195033632i to -0.807450724+0.2900273i
-    int m_width = 100;
-    int m_height = 200;
+    int m_width = 25;
+    int m_height = 50;
     int iterations = 45;
     
     // Inverse proportional scaling

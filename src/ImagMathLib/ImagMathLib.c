@@ -12,7 +12,7 @@ vec3 construct_tri(size_t components) {
     vec3 tp;
     double compliment[3] = {0.0, 0.0, 0.0};
     if (sizeof(components) == sizeof(compliment)) {
-        compliment[0] = (double)(components & 0x00000000FFFFFFFF);
+        compliment[0] = (double)(components & 4294967295);
         compliment[1] = (double)(components & 0xFFFFFFFF00000000);
         compliment[2] = (double)((components >> (sizeof(compliment) / 3)) &  0xFFFFFFFF00000000);
     } else {
@@ -61,18 +61,42 @@ ComplexNum normal_vec(ComplexNum *a)
     return norm_vec;
 }
 
-vec3 cross_product(vec3 *a, vec3 *b) {
-    // TODO: Implement cross product
-    // assumes union value of z_coord
+double vec_magnitude(vec3 *a) {
+    return sqrt(sqr(a->real_part) + sqr(a->imag_part) + sqr(a->z_coord));
+}
 
-    return *a;
+void normalize_vec(vec3 *a) {
+    double magnitude = vec_magnitude(a);
+    a->real_part /= magnitude;
+    a->imag_part /= magnitude;
+    a->z_coord /= magnitude;
+}
+
+double dot_product(vec3 *a, vec3 *b) {
+    double parts[3];
+    parts[0] = a->real_part * b->real_part;
+    parts[1] = a->imag_part * b->imag_part;
+    parts[2] = a->z_coord * b->z_coord;
+
+    return parts[0] + parts[1] + parts[2];
+}
+
+vec3 cross_product(vec3 *a, vec3 *b) {
+    // takes 2 3d vectors and returns another 3D vector orthoganal to both vectors.
+    vec3 res;
+    double i_component = (a->imag_part * b->z_coord) - (b->imag_part * a->z_coord);
+    double j_component = (a->real_part * b->z_coord) - (b->real_part * a->z_coord);
+    double k_component = (a->real_part * b->imag_part) - (b->real_part * a->imag_part);
+    res.real_part = i_component;
+    res.imag_part = j_component;
+    res.z_coord = k_component;
+    return res;
 }
 
 double two_dim_cross_product(ComplexNum *a, ComplexNum *b) {
-    // warning 2D cross product may not work as expected, since there is not always
-    // an orthoganal vector in 2D space, returns a scalar value based on position
-    // and orientation of the two vectors in 2D, as 2D cross product will always
-    // produce a scalar value.
+    // Note: there is not always an orthoganal vector in 2D space, returns a scalar value 
+    // based on positionand orientation of the two vectors in 2D, as 2D cross product will 
+    // always roduce a scalar value.
     double cp;
     cp = (a->real_part * b->imag_part) - (a->imag_part * b->real_part);
     return cp;
