@@ -81,6 +81,18 @@ double dot_product(vec3 *a, vec3 *b) {
     return parts[0] + parts[1] + parts[2];
 }
 
+double vec_angle_between(vec3 *a, vec3 *b) {
+    // alternative definition of cross product is
+    // |a||b|sin(A)n, where A=asin((|a x b|)/[|a||b|])
+    // and n is a vector normal to the two given
+    vec3 norm_vec = cross_product(a, b);
+
+    // turns norm_vec into a unit vector
+    double norm_mag = vec_magnitude(&norm_vec);
+    double reciprocal = norm_mag / (vec_magnitude(a), vec_magnitude(b));
+    return asin(reciprocal);
+}
+
 vec3 cross_product(vec3 *a, vec3 *b) {
     // takes 2 3d vectors and returns another 3D vector orthoganal to both vectors.
     vec3 res;
