@@ -60,7 +60,7 @@ ComplexNum normal_vec(ComplexNum *a)
 
     return norm_vec;
 }
-
+/*
 double vec_magnitude(vec3 *a) {
     return sqrt(sqr(a->real_part) + sqr(a->imag_part) + sqr(a->z_coord));
 }
@@ -92,12 +92,12 @@ double vec_angle_between(vec3 *a, vec3 *b) {
     double reciprocal = norm_mag / (vec_magnitude(a), vec_magnitude(b));
     return asin(reciprocal);
 }
-
+*/
 vec3 cross_product(vec3 *a, vec3 *b) {
     // takes 2 3d vectors and returns another 3D vector orthoganal to both vectors.
     vec3 res;
     double i_component = (a->imag_part * b->z_coord) - (b->imag_part * a->z_coord);
-    double j_component = (a->real_part * b->z_coord) - (b->real_part * a->z_coord) * -1;
+    double j_component = ((a->real_part * b->z_coord) - (b->real_part * a->z_coord)) * -1;
     double k_component = (a->real_part * b->imag_part) - (b->real_part * a->imag_part);
     res.real_part = i_component;
     res.imag_part = j_component;
