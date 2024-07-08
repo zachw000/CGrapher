@@ -185,6 +185,6 @@ void vec_stack_add(ComplexNum *a, ComplexNum *b) {
 }
 
 void vec_stack_abs(ComplexNum *a) {
-    a->real_part = abs(a->real_part);
-    a->imag_part = abs(a->imag_part);
+    a->real_part = fabs(a->real_part);
+    a->imag_part = fabs(a->imag_part);
 }
