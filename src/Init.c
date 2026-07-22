@@ -106,9 +106,9 @@ void generate_viewport(int m_width, int m_height, ComplexNum *map[m_width][m_hei
 void MandelbrotTest2(double x, double z) {
 
     // SPIRALS -0.826153702+0.195033632i to -0.807450724+0.2900273i
-    int m_width = 25;
-    int m_height = 50;
-    int iterations = 45;
+    int m_width = 100;
+    int m_height = 200;
+    int iterations = 1000;
     
     // Inverse proportional scaling
     double x_scale = 4.0;
@@ -131,6 +131,23 @@ void MandelbrotTest2(double x, double z) {
     }
     print_map(m_width, m_height, map);
     printf("\n");
+}
+
+enum {
+	INVALID_INPUT=-1,
+	DIVISION_BY_ZERO=0
+};
+
+int error(int return_code) {
+	switch(return_code) {
+		case INVALID_INPUT:
+			fprintf(stderr, "Invalid input, please enter numbers!\n");
+			break;
+		default:
+			fprintf(stderr, "Unknown error has occured.\n");
+			break;
+	}
+	return return_code;
 }
 
 int main(int argc, char ** argv)
@@ -157,15 +174,24 @@ int main(int argc, char ** argv)
                 if (k == 0 && c_char == '-') {
                     mult = -1;
                     k++;
+					if (k >= strlen(argv[n])) {
+						return error(-1);
+					}
+                    continue;
+                } else if (k == 0 && c_char == '+') {
+                    k++;
+					if (k >= strlen(argv[n])) {
+						return error(-1);
+					}
                     continue;
                 }
                 if (use_ten) ten_pow--;
                 // check if input is between 0-9
-                if (c_char == '.' && k != 0 && !use_ten) {
+                //if (c_char == '.' && k != 0 && !use_ten) {
+                if (c_char == '.' && !use_ten) {
                     use_ten = true;
                 } else if (c_char - 48 < 0 || c_char - 48 > 9) {
-                    fprintf(stderr, "Invalid input, please enter numbers!\n");
-                    return -1;
+					return error(-1);
                 } else {
                     tot[n - 1] *= 10;
                     tot[n - 1] += (int)c_char - 48;
@@ -183,7 +209,9 @@ int main(int argc, char ** argv)
         ComplexNum cn = construct_pair((double)tot[0], (double)tot[1]);
 
         // Test data input
-        printf("Complex number is: %.2f+%.2fi\n", cn.real_part, cn.imag_part);
+        printf("Complex number is: %.4f", cn.real_part);
+		if (cn.imag_part >= 0) printf("+");
+		printf("%.4fi\n", cn.imag_part);
 
         // Test Magnitude
         printf("Vector Magnitude: %.4f\n", vec_magnitude(&cn));
